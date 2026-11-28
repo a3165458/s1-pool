@@ -1,5 +1,6 @@
 // @ts-nocheck
 // Module: overview — Command Overview, Engine Load Waveform, Fleet Telemetry & Boards
+import { Activity, CircleAlert, Layers3, TriangleAlert } from 'lucide-react';
 import { N, _, vc, bt, cr, ut, As } from '../lib/vendor-runtime';
 import { V, Am, Jf, Nf, U, W, El, q, iu, Ll, yp, tu, Vp, Xd, G, tf, $d, ef, sf, nd, Mp, zp, J, mu, hu, pu, Ud, bl, Rm, Lm, rp, ap, K, yl, Iu } from './core';
 import { ug, Dh, Eh, s_, Th, Oh, Uh, Yg, bg, Xg, $g, e_, Qg, Zg, Nh, cg, og, sg, wh, eg, $h, ng, rg, Kh, Ug, Vg, vg } from './notices';
@@ -1358,7 +1359,7 @@ function Eb({
   }
   =N();
   return(0,V.jsxs)(`span`,{
-    className:wb.chip,children:[(0,V.jsx)(Tb,{
+    className:wb.chip,"data-status":e,children:[(0,V.jsx)(Tb,{
       state:e
     }),t(`state.${e}`)]
   })
@@ -2742,13 +2743,13 @@ function jS({
 var MS=5e3;
 
 function NS({
-  name:e,hint:t,mark:n,children:r
+  name:e,hint:t,mark:n,children:r,icon:Icon,tone,secondary,secondaryHint
 }){
   return(0,V.jsxs)(`div`,{
-    className:J.stat,title:t,children:[(0,V.jsxs)(`dt`,{
-      className:J.statName,children:[n,e]
-    }),(0,V.jsx)(`dd`,{
-      className:J.statValue,children:r
+    className:J.stat,title:t,"data-kpi-tone":tone,children:[(0,V.jsxs)(`dt`,{
+      className:J.statName,children:[Icon&&(0,V.jsx)(Icon,{size:15,"aria-hidden":true,className:`console-kpi-icon`}),n,e]
+    }),(0,V.jsxs)(`dd`,{
+      className:J.statValue,children:[r,secondary&&(0,V.jsx)(`span`,{className:`console-kpi-secondary`,title:secondaryHint,children:secondary})]
     })]
   })
 }
@@ -2764,27 +2765,16 @@ function PS({
   }):t(e);
   return(0,V.jsxs)(`dl`,{
     className:`${J.stats} ${t===`paired`?J.statsPaired:J.statsRow}`,"data-figures":t,children:[(0,V.jsx)(NS,{
-      name:n(`pool.stat_accounts`),children:l(e=>c(e.total))
+      name:n(`pool.stat_accounts`),icon:Layers3,tone:`accounts`,children:l(e=>c(e.total)),
+      secondary:e===`pending`?null:`${n(`pool.stat_available`)} ${c(e.serving)} / ${c(e.healthy)}`,secondaryHint:n(`pool.stat_available_hint`)
     }),(0,V.jsx)(NS,{
-      name:n(`pool.stat_recent`),hint:n(s?.settled===!1?`pool.recent_warming`:`pool.stat_recent_hint`),children:c(s?.value??null)
+      name:n(`pool.stat_rpm`),hint:n(`pool.stat_rpm_hint`),icon:Activity,mark:(0,V.jsx)(`span`,{
+        className:J.live,"data-live":i!==null,"aria-hidden":`true`
+      }),children:c(i),secondary:`${n(`pool.stat_recent`)} ${c(s?.value??null)}`,secondaryHint:n(s?.settled===!1?`pool.recent_warming`:`pool.stat_recent_hint`)
     }),(0,V.jsx)(NS,{
-      name:n(`pool.stat_rpm`),hint:n(`pool.stat_rpm_hint`),mark:(0,V.jsx)(`span`,{
-        className:J.live,"data-live":i!==null,"data-detect-ignore":`pulsing-dot`,"aria-hidden":`true`
-      }),children:c(i)
+      name:n(`pool.stat_limited`),hint:n(`pool.stat_limited_hint`),icon:TriangleAlert,tone:`warn`,children:l(e=>c(e.limited))
     }),(0,V.jsx)(NS,{
-      name:n(`pool.stat_available`),hint:n(`pool.stat_available_hint`),children:l(e=>(0,V.jsxs)(V.Fragment,{
-        children:[c(e.serving),(0,V.jsxs)(`span`,{
-          className:J.statOf,children:[`/ `,c(e.healthy)]
-        })]
-      }))
-    }),(0,V.jsx)(NS,{
-      name:n(`pool.stat_limited`),hint:n(`pool.stat_limited_hint`),mark:(0,V.jsx)(Tb,{
-        state:`limited`
-      }),children:l(e=>c(e.limited))
-    }),(0,V.jsx)(NS,{
-      name:n(`pool.stat_dead`),hint:n(`pool.stat_dead_hint`),mark:(0,V.jsx)(Tb,{
-        state:`fault`
-      }),children:l(e=>c(e.dead))
+      name:n(`pool.stat_dead`),hint:n(`pool.stat_dead_hint`),icon:CircleAlert,tone:`fault`,children:l(e=>c(e.dead))
     })]
   })
 }

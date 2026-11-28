@@ -1,5 +1,7 @@
 // Exact bilingual locales (zh-CN & en) recovered via REA static analysis
 export const enLocale = {
+  console_ui: { search: 'Search pages', no_results: 'No matching pages', no_notices: 'No announcements', account: 'Account menu', health: 'Account health and quotas', row_actions: 'Actions for {{name}}', account_details: 'View account details' },
+  account_table: { title: 'Account pool', select: 'Select', account: 'Account', status: 'Status', activity: 'Activity', proxy: 'Proxy', quota: 'Quota usage', enabled: 'Actions' },
   brand:{
     tagline:`Command with Zen clarity`
   },language:{
@@ -80,6 +82,8 @@ export const enLocale = {
 } as const;
 
 export const zhCNLocale = {
+  console_ui: { search: '搜索页面', no_results: '没有匹配的页面', no_notices: '暂无公告', account: '账号菜单', health: '账号健康与配额', row_actions: '{{name}} 的操作', account_details: '查看账号详情' },
+  account_table: { title: '账号池', select: '选择', account: '账号', status: '状态', activity: '用量与请求', proxy: '代理出口', quota: '配额用量', enabled: '操作' },
   brand:{
     tagline:`以禅意的清晰驾驭`
   },language:{

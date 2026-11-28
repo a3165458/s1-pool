@@ -1,5 +1,6 @@
 // @ts-nocheck
 // Module: core — Core Contracts, Fen Math, API Client, SSE Streams, Brand & AppShell
+import { Bell, ChevronDown, Search } from 'lucide-react';
 import { _, V, pl, er, zStr as z, Yn, B, $n, Zn, ir, Qn, ar, rr, Xn, F, or, nr, tr, st, N, sr, lt, cr, fr, lr, hr, ct, bt, yc, Ko, js } from '../lib/vendor-runtime';
 
 var ml=24,hl=.45,gl=.07,_l=.36,vl=e=>1-(1-e)**4,yl=()=>typeof window<`u`&&typeof window.matchMedia==`function`&&window.matchMedia(`(prefers-reduced-motion: reduce)`).matches;
@@ -1678,16 +1679,26 @@ function mm({
   })
 }
 
-function hm(){
-  let{
-    t:e
-  }
-  =N(),t=dm();
-  return t.length===0?null:(0,V.jsxs)(`div`,{
-    className:`${fm.line} ${fm.bar}`,"data-notice-bar":!0,children:[(0,V.jsxs)(`output`,{
-      className:`visually-hidden`,children:[e(`shell.notice_label`),`：`,t.map(e=>e.text).join(` `)]
-    }),(0,V.jsx)(mm,{
-      notices:t
+function NoticeStrip({notices}){
+  let {t}=N();
+  return notices.length===0?null:(0,V.jsxs)(`div`,{
+    className:fm.line,"data-notice-bar":!0,children:[(0,V.jsx)(`output`,{
+      className:`visually-hidden`,children:`${t(`shell.notice_label`)}: ${notices.map(notice=>notice.text).join(` `)}`
+    }),(0,V.jsx)(mm,{notices})]
+  })
+}
+
+function hm({notices,canManage}){
+  let {t}=N();
+  return(0,V.jsxs)(`details`,{
+    className:`console-popover console-announcements`,children:[(0,V.jsxs)(`summary`,{
+      className:`console-icon-button`,title:t(`shell.notice_label`),"aria-label":t(`shell.notice_label`),children:[(0,V.jsx)(Bell,{size:18,"aria-hidden":true}),notices.length>0&&(0,V.jsx)(`span`,{className:`console-notice-dot`,"aria-hidden":true})]
+    }),(0,V.jsxs)(`div`,{
+      className:`console-popover-panel`,children:[(0,V.jsx)(`strong`,{children:t(`shell.notice_label`)}),notices.length?(0,V.jsx)(`ul`,{
+        children:notices.map(notice=>(0,V.jsx)(`li`,{children:notice.text},notice.id))
+      }):(0,V.jsx)(`p`,{children:t(`console_ui.no_notices`)}),canManage&&(0,V.jsx)(yc,{
+        to:ym.to,onClick:event=>{event.currentTarget.closest(`details`).open=!1},children:t(ym.labelKey)
+      })]
     })]
   })
 }
@@ -1776,6 +1787,30 @@ function Em({
   })
 }
 
+function ConsoleSearch({principal}){
+  let {t}=N(),[query,change]=(0,_.useState)(``),input=(0,_.useRef)(null);
+  (0,_.useEffect)(()=>{
+    const focus=event=>{
+      if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()===`k`){
+        event.preventDefault();input.current?.focus();
+      }
+    };
+    document.addEventListener(`keydown`,focus);
+    return()=>document.removeEventListener(`keydown`,focus);
+  },[]);
+  const term=query.trim().toLowerCase(),matches=principal===null?[]:Tm(principal).flatMap(group=>group.items).filter(item=>item.to!==null&&t(item.labelKey).toLowerCase().includes(term));
+  const reset=()=>{change(``);input.current?.blur()};
+  return(0,V.jsxs)(`search`,{
+    className:`console-search`,onKeyDown:event=>{if(event.key===`Escape`)reset()},children:[(0,V.jsx)(Search,{size:16,"aria-hidden":true}),(0,V.jsx)(`input`,{
+      ref:input,type:`search`,placeholder:t(`console_ui.search`),"aria-label":t(`console_ui.search`),value:query,onChange:event=>change(event.target.value),autoComplete:`off`
+    }),(0,V.jsx)(`kbd`,{children:`Ctrl K`}),(0,V.jsx)(`div`,{
+      className:`console-popover-panel console-search-results`,children:matches.length?matches.map(item=>(0,V.jsx)(yc,{
+        to:item.to,onClick:event=>{event.currentTarget.blur();reset()},children:t(item.labelKey)
+      },item.id)):(0,V.jsx)(`p`,{children:t(`console_ui.no_results`)})
+    })]
+  })
+}
+
 var Dm=`(max-width: 768px)`;
 
 function Om(){
@@ -1783,6 +1818,7 @@ function Om(){
     t:e
   }
   =N(),t=q(e=>e.principal),n=q(e=>e.logout),r=jp(e=>e.language),i=jp(e=>e.setLanguage),a=vp(Dm),o=Ko().pathname===`/settlement`?`gold`:`brand`,s=(0,_.useRef)(null),[c]=(0,_.useState)(jl),[l,u]=(0,_.useState)(!1),[d,f]=(0,_.useState)(!1),[p,m]=(0,_.useState)(`idle`),h=a&&d,g=!l||a,v=r===`zh-CN`?`en`:`zh-CN`;
+  const notices=dm();
   d&&!a&&f(!1),(0,_.useEffect)(()=>{
     if(!h)return;let e=e=>{
       e.key===`Escape`&&(f(!1),s.current?.querySelector(`button`)?.focus())
@@ -1815,22 +1851,25 @@ function Om(){
             size:18
           })
         })
-      }),(0,V.jsxs)(`div`,{
-        className:`header-actions floating-actions`,children:[(0,V.jsx)(K,{
+      }),(0,V.jsx)(ConsoleSearch,{principal:t}),(0,V.jsxs)(`div`,{
+        className:`header-actions floating-actions`,children:[(0,V.jsx)(hm,{notices,canManage:t?.role===`admin`}),(0,V.jsx)(K,{
           variant:`ghost`,size:`sm`,onClick:()=>i(v),"aria-label":e(`shell.switch_language`),title:e(`shell.switch_language`),lang:v,children:v===`en`?`EN`:`中`
-        }),(0,V.jsx)(K,{
-          variant:`ghost`,size:`sm`,onClick:()=>void y(),disabled:p===`busy`,"aria-label":e(`shell.sign_out`),title:e(`shell.sign_out`),children:(0,V.jsx)(Gf,{
-            size:17
-          })
-        }),p===`failed`&&(0,V.jsx)(`p`,{
-          className:`shell-notice`,role:`alert`,children:e(`shell.sign_out_failed`)
+        }),t!==null&&(0,V.jsxs)(`details`,{
+          className:`console-popover`,children:[(0,V.jsxs)(`summary`,{
+            className:`console-user-summary`,"aria-label":e(`console_ui.account`),children:[(0,V.jsx)(`span`,{className:`console-avatar`,"aria-hidden":true,children:t.email.slice(0,2).toUpperCase()}),(0,V.jsx)(ChevronDown,{size:14,"aria-hidden":true})]
+          }),(0,V.jsxs)(`div`,{
+            className:`console-popover-panel`,children:[(0,V.jsx)(`strong`,{children:t.email}),(0,V.jsx)(`p`,{
+              children:e(t.role===`supplier`&&t.parent!==null?`role.sub_supplier`:`role.${t.role}`)
+            }),(0,V.jsxs)(K,{
+              variant:`ghost`,size:`sm`,className:`console-signout`,onClick:()=>void y(),disabled:p===`busy`,children:[(0,V.jsx)(Gf,{size:16}),e(`shell.sign_out`)]
+            }),p===`failed`&&(0,V.jsx)(`p`,{role:`alert`,children:e(`shell.sign_out_failed`)})]
+          })]
         })]
-      }),(0,V.jsx)(hm,{})]
-    }),(0,V.jsxs)(`div`,{
-      className:`main-body`,children:[h&&(0,V.jsx)(`button`,{
+      })]
+    }),h&&(0,V.jsx)(`button`,{
         type:`button`,className:`sidebar-backdrop visible`,onClick:()=>f(!1),"aria-label":e(`shell.close_menu`)
-      }),(0,V.jsxs)(`aside`,{
-        className:`sidebar ${h?`open`:``} ${l?`collapsed`:``}`,inert:a&&!d,children:[(0,V.jsx)(`div`,{
+      }),(0,V.jsxs)(`div`,{
+        className:`sidebar saas-nav ${h?`open`:``} ${l?`collapsed`:``}`,inert:a&&!d,children:[(0,V.jsx)(`div`,{
           className:`sidebar-header`,children:(0,V.jsxs)(`div`,{
             className:`sidebar-brand`,children:[(0,V.jsx)(zf,{
               size:22,tone:o
@@ -1856,10 +1895,11 @@ function Om(){
           })]
         })]
       }),(0,V.jsx)(`div`,{
-        className:`content`,inert:h,children:(0,V.jsx)(`main`,{
-          className:`main-content`,children:(0,V.jsx)(js,{})
+      className:`main-body`,children:(0,V.jsx)(`div`,{
+        className:`content`,inert:h,children:(0,V.jsxs)(`main`,{
+          className:`main-content`,children:[(0,V.jsx)(NoticeStrip,{notices}),(0,V.jsx)(js,{})]
         })
-      })]
+      })
     })]
   })
 }

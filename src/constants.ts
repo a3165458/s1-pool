@@ -1,6 +1,6 @@
 export const BRAND = {
-  stem: 'AERO',
-  suffix: 'ULTRA',
+  stem: 'Clear',
+  suffix: 'Node',
 } as const;
 
 export const STORAGE_KEYS = {

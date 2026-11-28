@@ -1,5 +1,6 @@
 // @ts-nocheck
 // Module: pool — Account Pool Bird's-Eye Matrix, Virtualized Grid, Ghost Valley, Deploy & Mascot
+import { ChartNoAxesColumnIncreasing, MoreHorizontal, TrendingUp } from 'lucide-react';
 import { _, N, bt, sr, ut, kc, cr, dt, pl, ft } from '../lib/vendor-runtime';
 import { yl, V, Bf, dp, fp, K, Zf, Rd, zd, ap, yp, W, U, El, Nf, q, Am, rp, Lm, J, bl, sp, up, hp, Im, uu, lu, cp, lp, ip, Rm, Jl, cu } from './core';
 import { Ug, Vg, ph, wh, Th, Xg, bg, Eh, Kh, vg, Dh, Yg, $g, Oh, Nh, Ah, Mh, kh, dh, lh, uh, mh, qh } from './notices';
@@ -1542,16 +1543,14 @@ function oO({
 
 var sO={
   columns:42,rows:15,pitch:6
-},cO=2*sO.pitch;
+};
 
 function lO({
-  name:e,tone:t,seed:n,children:r
+  name:e,tone:t,icon:Icon,children:r
 }){
   return(0,V.jsxs)(`div`,{
-    className:J.hero,children:[(0,V.jsx)(OS,{
-      className:J.swash,tone:t,shape:`swash`,seed:n,...sO
-    }),(0,V.jsx)(`dt`,{
-      className:J.heroName,children:e
+    className:J.hero,"data-kpi-tone":t,children:[(0,V.jsxs)(`dt`,{
+      className:J.heroName,children:[(0,V.jsx)(Icon,{size:15,"aria-hidden":true,className:`console-kpi-icon`}),e]
     }),(0,V.jsx)(`dd`,{
       className:J.heroValue,children:r
     })]
@@ -1565,34 +1564,30 @@ function uO(e){
   =e,{
     t:c,i18n:l
   }
-  =N(),u=l.language.startsWith(`zh`),d=bl(),f=AD(n,r,i),p=e=>Dh(e,l.language),m=e=>f===`pending`?(0,V.jsx)(Am,{
+  =N(),d=bl(),f=AD(n,r,i),p=e=>Dh(e,l.language),m=e=>f===`pending`?(0,V.jsx)(Am,{
     width:148,height:34,rounded:8
   }):p(e??null);
   return(0,V.jsxs)(`header`,{
     className:J.header,ref:d,children:[(0,V.jsxs)(`div`,{
       className:J.top,children:[(0,V.jsxs)(`h1`,{
-        className:J.title,"data-reveal":!0,"data-detect-ignore":`gradient-text`,children:[c(`pool.title`),u&&(0,V.jsx)(JD,{
-          text:c(`pool.title`),under:cO
-        })]
+        className:J.title,children:c(`account_table.title`)
       }),(0,V.jsxs)(`div`,{
         className:J.actions,children:[s!==null&&(0,V.jsx)(jS,{
           onOpen:s
-        }),t!==null&&(u?(0,V.jsx)(oO,{
-          label:c(`pool.refresh`),busy:a,disabled:a||t===`pending`,onRefresh:o
-        }):(0,V.jsxs)(`button`,{
+        }),t!==null&&(0,V.jsxs)(`button`,{
           type:`button`,className:`${Lm.ghostAction} ${J.refresh}`,onClick:o,disabled:a||t===`pending`,"aria-busy":a,"aria-label":c(`pool.refresh`),children:[(0,V.jsx)(rp,{
             size:14,className:a?Lm.spinning:void 0
           }),(0,V.jsx)(`span`,{
             children:c(`pool.refresh`)
           })]
-        }))]
+        })]
       })]
     }),t!==null&&(0,V.jsxs)(`div`,{
       className:J.band,children:[(0,V.jsxs)(`dl`,{
         className:J.heroes,children:[(0,V.jsx)(lO,{
-          name:c(`pool.stat_today`),tone:`today`,seed:11,children:m(f===`pending`?null:f.today)
+          name:c(`pool.stat_today`),tone:`today`,icon:TrendingUp,children:m(f===`pending`?null:f.today)
         }),(0,V.jsx)(lO,{
-          name:c(`pool.stat_total`),tone:`total`,seed:29,children:m(f===`pending`?null:f.total)
+          name:c(`pool.stat_total`),tone:`total`,icon:ChartNoAxesColumnIncreasing,children:m(f===`pending`?null:f.total)
         })]
       }),(0,V.jsx)(PS,{
         headline:t,layout:`paired`
@@ -1605,14 +1600,6 @@ var dO={
   quota:`PoolQuota-module__quota___nGWLl`,windows:`PoolQuota-module__windows___nsrkk`,window:`PoolQuota-module__window___4b689`,bar:`PoolQuota-module__bar___Vt4wT`,share:`PoolQuota-module__share___1db2N`
 },fO=4,pO=6,mO=2;
 
-function hO(e){
-  let{
-    aero:t,indigo:n
-  }
-  =Yg(),r=e.canvas.getBoundingClientRect(),i=e.canvas.closest(`[data-pool-quota]`)?.getBoundingClientRect()??r,a=i.left-r.left,o=e.createLinearGradient(a,0,a+i.width,0);
-  return o.addColorStop(0,t),o.addColorStop(1,n),o
-}
-
 function gO({
   share:e
 }){
@@ -1621,9 +1608,9 @@ function gO({
       context:n,grid:r
     }
     =t,i=Lx(e,r.columns),{
-      limited:a,quiet:o
+      quiet:o
     }
-    =Yg(),s=e!==null&&e>=.7?a:hO(n);for(let e=0;e<r.columns;e+=1){
+    =Yg(),s=e!==null&&e>=.7?`#F59E0B`:`#10B981`;for(let e=0;e<r.columns;e+=1){
       let t=e<i;n.fillStyle=t?s:o,n.globalAlpha=t?1:$g;for(let t=0;t<r.rows;t+=1)n.fillRect(e*pO,t*pO,fO,fO)
     }
   },[e]);
@@ -2351,13 +2338,9 @@ function bk({
   })
 }
 
-var xk={
-  columns:9,rows:7,pitch:5
-};
-
 function Sk(e){
   let{
-    account:t,position:n,listed:r,exits:i,naming:a,remark:o,now:s,clock:c,selected:l,on:u,busy:d
+    account:t,position:n,exits:i,naming:a,remark:o,now:s,clock:c,selected:l,on:u,busy:d
   }
   =e,{
     carried:f
@@ -2385,18 +2368,21 @@ function Sk(e){
   },{
     short:p(`pool.age`),name:p(`account.enlisted`),value:kh(h.createdAt,s,m.language)
   }];
-  return(0,V.jsx)(`li`,{
-    className:tD.cell,"data-account":!0,"aria-setsize":r,"aria-posinset":n,children:(0,V.jsxs)(`div`,{
-      className:tD.card,"data-selected":l||void 0,"data-arrived":e.arrived||void 0,children:[(0,V.jsx)(OS,{
-        className:tD.accent,tone:t.state,shape:`corner`,seed:Number(t.id.slice(-6)),...xk
-      }),(0,V.jsx)(WO,{
-        className:tD.check,checked:l,onChange:n=>e.onToggle(t.id,n),ariaLabel:p(`pool.select_account`,{
+  return(0,V.jsxs)(`tr`,{
+    className:`saas-account-row`,"data-account":!0,"data-selected":l||void 0,"data-arrived":e.arrived||void 0,"aria-rowindex":n+1,children:[(0,V.jsx)(`td`,{
+      children:(0,V.jsx)(WO,{
+        checked:l,onChange:n=>e.onToggle(t.id,n),ariaLabel:p(`pool.select_account`,{
           name:h.name
         })
-      }),(0,V.jsxs)(`div`,{
-        className:tD.line,children:[(0,V.jsx)(`button`,{
-          type:`button`,className:tD.name,onClick:()=>e.onOpen(t.id),children:h.name
-        }),(0,V.jsxs)(`span`,{
+      })
+    }),(0,V.jsxs)(`th`,{
+      scope:`row`,children:[(0,V.jsx)(`button`,{
+        type:`button`,className:tD.name,onClick:()=>e.onOpen(t.id),children:h.name
+      }),(0,V.jsx)(`span`,{
+        className:tD.owner,title:h.owner===null?void 0:zE(h.owner,a),children:h.owner===null?p(`pool.platform_held`):LE(h.owner,a)
+      })]
+    }),(0,V.jsx)(`td`,{
+      children:(0,V.jsxs)(`span`,{
           className:tD.status,children:[g!==null&&(0,V.jsxs)(`span`,{
             className:tD.tier,title:p(`account.tier`),children:[(0,V.jsx)(`span`,{
               className:`visually-hidden`,children:p(`account.tier`)
@@ -2404,15 +2390,9 @@ function Sk(e){
           }),(0,V.jsx)(Ob,{
             account:t
           })]
-        }),(0,V.jsx)(hx,{
-          className:tD.switch,checked:u,onChange:n=>e.onSwitch(t,n),label:p(`pool.switch_account`,{
-            name:h.name
-          }),disabled:d
-        })]
-      }),(0,V.jsxs)(`div`,{
-        className:tD.line,children:[(0,V.jsx)(`span`,{
-          className:tD.owner,title:h.owner===null?void 0:zE(h.owner,a),children:h.owner===null?p(`pool.platform_held`):LE(h.owner,a)
-        }),(0,V.jsx)(`dl`,{
+        })
+      }),(0,V.jsxs)(`td`,{
+        children:[(0,V.jsx)(`dl`,{
           className:tD.stats,children:w.map(e=>(0,V.jsxs)(`div`,{
             title:e.name,children:[(0,V.jsxs)(`dt`,{
               children:[(0,V.jsx)(`span`,{
@@ -2424,9 +2404,15 @@ function Sk(e){
               children:e.value
             })]
           },e.name))
+        }),S===null&&(0,V.jsxs)(`span`,{
+          className:tD.rates,children:[(0,V.jsx)(_k,{
+            recent:e.recent
+          }),(0,V.jsx)(vk,{
+            ...e.rate
+          })]
         })]
-      }),(0,V.jsx)(`div`,{
-        className:tD.line,children:S===null?(0,V.jsxs)(V.Fragment,{
+      }),(0,V.jsx)(`td`,{
+        children:S===null?(0,V.jsxs)(V.Fragment,{
           children:[(0,V.jsxs)(`span`,{
             className:tD.exit,children:[(0,V.jsx)(`span`,{
               className:`visually-hidden`,children:p(`pool.exit_label`)
@@ -2441,24 +2427,35 @@ function Sk(e){
                 className:`visually-hidden`,children:p(`account.remark`)
               }),o]
             })]
-          }),(0,V.jsxs)(`span`,{
-            className:tD.rates,children:[(0,V.jsx)(_k,{
-              recent:e.recent
-            }),(0,V.jsx)(vk,{
-              ...e.rate
-            })]
           }),_!==null&&(0,V.jsx)(gk,{
             health:b?.health,every:e.patrolEvery
           })]
         }):(0,V.jsx)(yk,{
           until:S
         })
-      }),(0,V.jsx)(`dl`,{
-        className:tD.meters,children:C.map(e=>(0,V.jsx)(bk,{
-          ...e,now:s,clock:c
-        },e.short))
+      }),(0,V.jsx)(`td`,{
+        children:(0,V.jsx)(`dl`,{
+          className:tD.meters,children:C.map(e=>(0,V.jsx)(bk,{
+            ...e,now:s,clock:c
+          },e.short))
+        })
+      }),(0,V.jsx)(`td`,{
+        children:(0,V.jsxs)(`div`,{
+          className:`console-row-actions`,children:[(0,V.jsx)(hx,{
+            className:tD.switch,checked:u,onChange:n=>e.onSwitch(t,n),label:p(`pool.switch_account`,{
+              name:h.name
+            }),disabled:d
+          }),(0,V.jsxs)(`details`,{
+            className:`console-popover console-row-menu`,children:[(0,V.jsx)(`summary`,{
+              className:`console-icon-button`,"aria-label":p(`console_ui.row_actions`,{name:h.name}),children:(0,V.jsx)(MoreHorizontal,{size:17,"aria-hidden":true})
+            }),(0,V.jsx)(`div`,{
+              className:`console-popover-panel`,children:(0,V.jsx)(`button`,{
+                type:`button`,onClick:event=>{event.currentTarget.closest(`details`).open=!1;e.onOpen(t.id)},children:p(`console_ui.account_details`)
+              })
+            })]
+          })]
+        })
       })]
-    })
   })
 }
 
@@ -2608,7 +2605,15 @@ function Fk(e){
   },[t,n,r,i,a]),o
 }
 
-var Ik=124,Lk=184,Rk=10,zk=960,Bk=560,Vk=4,Hk=3e4,Uk=1e4,Wk=300;
+var accountRowHeight=112,Vk=4,Hk=3e4,Uk=1e4,Wk=300;
+
+function accountTableSpacer(height,ref){
+  return(0,V.jsx)(`tr`,{
+    ref,"aria-hidden":`true`,className:`saas-account-spacer`,children:(0,V.jsx)(`td`,{
+      colSpan:7,style:{height}
+    })
+  })
+}
 
 function Gk(e){
   let{
@@ -2629,12 +2634,9 @@ function Kk(e){
   =e,{
     t:l
   }
-  =N(),u=(0,_.useRef)(null),d=(0,_.useRef)(null),f=(0,_.useRef)(null),p=(0,_.useRef)(null),[m,h]=(0,_.useState)(zk);
-  (0,_.useLayoutEffect)(()=>{
-    let e=u.current;if(!e)return;h(e.clientWidth);let t=new ResizeObserver(()=>h(e.clientWidth));return t.observe(e),()=>t.disconnect()
-  },[]);
-  let g=m>=zk?2:1,v=(m<Bk?Lk:Ik)+Rk,y=Fk({
-    topRef:f,count:t.length,columns:g,linePitch:v,overscan:Vk
+  =N(),u=(0,_.useRef)(null),d=(0,_.useRef)(null),f=(0,_.useRef)(null),p=(0,_.useRef)(null);
+  let y=Fk({
+    topRef:f,count:t.length,columns:1,linePitch:accountRowHeight,overscan:Vk
   }),b=t.every(e=>a.has(e.id)),x=t.slice(y.start,y.end),S=y_(Hk),C=sv(e=>e.rates),w=sv(e=>e.tracks),T=sv(e=>e.heardAt),E=Math.max(y_(Uk),T),D=e=>{
     let t=w.get(e);
     return t===void 0?null:$_(t,E)
@@ -2652,20 +2654,22 @@ function Kk(e){
       }),n.pages>1&&(0,V.jsx)(jk,{
         paging:n,onTurn:n.turnTo
       })]
-    }),(0,V.jsxs)(`ul`,{
-      className:tD.list,"aria-label":l(`pool.table_label`),tabIndex:-1,ref:d,children:[(0,V.jsx)(`li`,{
-        className:tD.standIn,"aria-hidden":`true`,ref:f,style:{
-          height:y.before
-        }
-      }),x.map((t,r)=>(0,V.jsx)(Sk,{
-        account:t,position:n.start+y.start+r+1,listed:n.total,exits:o,patrolEvery:e.patrolEvery,cleanupArmed:e.cleanupArmed,naming:e.naming,remark:e.remarks.get(t.id)??null,carried:e.carried.get(t.id)??null,rate:{
+    }),(0,V.jsx)(`div`,{
+      className:`saas-account-scroll`,tabIndex:0,role:`region`,"aria-label":l(`pool.table_label`),children:(0,V.jsxs)(`table`,{
+        className:`saas-account-table`,"aria-label":l(`pool.table_label`),"aria-rowcount":n.total+1,tabIndex:-1,ref:d,children:[(0,V.jsx)(`thead`,{
+          children:(0,V.jsx)(`tr`,{
+            children:[`select`,`account`,`status`,`activity`,`proxy`,`quota`,`enabled`].map(key=>(0,V.jsx)(`th`,{
+              scope:`col`,children:l(`account_table.${key}`)
+            },key))
+          })
+        }),(0,V.jsxs)(`tbody`,{
+          children:[accountTableSpacer(y.before,f),x.map((t,r)=>(0,V.jsx)(Sk,{
+        account:t,position:n.start+y.start+r+1,exits:o,patrolEvery:e.patrolEvery,cleanupArmed:e.cleanupArmed,naming:e.naming,remark:e.remarks.get(t.id)??null,carried:e.carried.get(t.id)??null,rate:{
           rpm:C.get(t.id)??t.row.rpm,isLive:C.has(t.id)
         },recent:D(t.id),arrived:e.arrived.has(t.id),now:i,clock:S,selected:a.has(t.id),on:s.get(t.id)??t.row.healthy,busy:c,onToggle:e.onToggle,onOpen:e.onOpen,onSwitch:e.onSwitch
-      },t.id)),(0,V.jsx)(`li`,{
-        className:tD.standIn,"aria-hidden":`true`,style:{
-          height:y.after
-        }
-      })]
+      },t.id)),accountTableSpacer(y.after)]
+        })]
+      })
     }),(0,V.jsx)(Mk,{
       paging:n,onTurn:e=>{
         p.current={
@@ -3560,10 +3564,10 @@ var GA={
   matrix:`PoolMatrix-module__matrix___QObel`,canvas:`PoolMatrix-module__canvas___gHvO1`,label:`PoolMatrix-module__label___RB6Vz`,tip:`PoolMatrix-module__tip___w5WTw`,tipName:`PoolMatrix-module__tipName___CPGlm`,tipMeta:`PoolMatrix-module__tipMeta___co3Ws`
 },KA=.14,qA=.62,JA=420,YA=180,XA=6;
 
-function ZA(e,t){
-  let n=getComputedStyle(e.canvas),r=e=>n.getPropertyValue(e).trim(),i=e.createLinearGradient(0,0,t.width,t.height);
-  return i.addColorStop(0,r(`--aero`)),i.addColorStop(1,r(`--aero-indigo`)),{
-    enabled:i,limited:r(`--state-limited`),fault:r(`--state-fault`),disabled:r(`--state-disabled`),deploying:r(`--state-deploying`),deploy_failed:r(`--state-deploy-failed`),ring:r(`--text-primary`)
+function ZA(e){
+  let n=getComputedStyle(e.canvas),r=e=>n.getPropertyValue(e).trim();
+  return {
+    enabled:r(`--success-color`),limited:r(`--quota-medium-color`),fault:r(`--viz-failure`),disabled:r(`--state-disabled`),deploying:r(`--state-deploying`),deploy_failed:r(`--state-deploy-failed`),ring:r(`--text-primary`)
   }
 }
 
@@ -3608,7 +3612,7 @@ function $A(e){
       e&&d(Math.floor(e.contentRect.width))
     });return t.observe(e),()=>t.disconnect()
   },[]),(0,_.useEffect)(()=>{
-    let e=c.current,t=e?.getContext(`2d`);if(!e||!t||g.width===0)return;let i=Math.min(window.devicePixelRatio||1,2),a=Math.round(g.width*i),o=Math.round(g.height*i);(e.width!==a||e.height!==o)&&(e.width=a,e.height=o),t.setTransform(i,0,0,i,0,0);let s=ZA(t,g),u=l.current;!u.played&&h.length>0&&(u.played=!0,u.startedAt=yl()?null:performance.now());let d=0,p=e=>{
+    let e=c.current,t=e?.getContext(`2d`);if(!e||!t||g.width===0)return;let i=Math.min(window.devicePixelRatio||1,2),a=Math.round(g.width*i),o=Math.round(g.height*i);(e.width!==a||e.height!==o)&&(e.width=a,e.height=o),t.setTransform(i,0,0,i,0,0);let s=ZA(t),u=l.current;!u.played&&h.length>0&&(u.played=!0,u.startedAt=yl()?null:performance.now());let d=0,p=e=>{
       let i=u.startedAt===null?1/0:e-u.startedAt;QA(t,{
         layout:g,ordered:h,matching:n,selection:r,hovered:f,paint:s,elapsed:i
       }),i<600?d=requestAnimationFrame(p):u.startedAt=null
@@ -3654,8 +3658,9 @@ function $A(e){
 function ej({
   accounts:e,matching:t,selection:n,onOpen:r
 }){
+  let {t:translate}=N();
   return(0,V.jsxs)(`div`,{
-    className:Rm.overview,children:[e===null&&(0,V.jsx)(CD,{}),e!==null&&e.length>0&&(0,V.jsx)($A,{
+    className:Rm.overview,hidden:e?.length===0,children:[(0,V.jsx)(`h2`,{className:`console-health-title`,children:translate(`console_ui.health`)}),e===null&&(0,V.jsx)(CD,{}),e!==null&&e.length>0&&(0,V.jsx)($A,{
       accounts:e,matching:t,selection:n,onOpen:r
     }),(0,V.jsx)(_O,{
       accounts:e
@@ -4551,7 +4556,7 @@ function BM(){
       switch(t.status){
         case`loading`:return(0,V.jsxs)(V.Fragment,{
           children:[(0,V.jsxs)(`div`,{
-            className:Rm.overview,children:[(0,V.jsx)(CD,{}),(0,V.jsx)(_O,{
+            className:Rm.overview,children:[(0,V.jsx)(`h2`,{className:`console-health-title`,children:e(`console_ui.health`)}),(0,V.jsx)(CD,{}),(0,V.jsx)(_O,{
               accounts:null
             })]
           }),(0,V.jsxs)(`div`,{

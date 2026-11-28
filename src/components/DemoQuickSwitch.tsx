@@ -72,6 +72,8 @@ export const DemoQuickSwitch: React.FC = () => {
 
   return (
     <div
+      className="saas-demo"
+      data-login={isLoginScreen || undefined}
       style={{
         position: 'fixed',
         right: 16,
@@ -87,11 +89,10 @@ export const DemoQuickSwitch: React.FC = () => {
             padding: '10px 12px',
             width: 288,
             borderRadius: 12,
-            background: 'rgba(14, 18, 25, 0.94)',
-            border: '1px solid #262e3a',
-            boxShadow: '0 14px 32px rgba(0, 0, 0, 0.65)',
-            backdropFilter: 'blur(10px)',
-            color: '#f3f5f8',
+            background: 'var(--bg-primary)',
+            border: '1px solid var(--border-color)',
+            boxShadow: 'var(--shadow-lg)',
+            color: 'var(--text-primary)',
           }}
         >
           <div
@@ -101,11 +102,10 @@ export const DemoQuickSwitch: React.FC = () => {
               justifyContent: 'space-between',
               marginBottom: 8,
               fontSize: 11,
-              letterSpacing: '0.04em',
-              color: '#7b8491',
+              color: 'var(--text-secondary)',
             }}
           >
-            <span>演示身份一键切入 (密码: aeroultra123)</span>
+            <span>切换演示身份</span>
             {!isLoginScreen && (
               <button
                 type="button"
@@ -113,7 +113,7 @@ export const DemoQuickSwitch: React.FC = () => {
                 style={{
                   background: 'transparent',
                   border: 'none',
-                  color: '#7b8491',
+                  color: 'var(--text-secondary)',
                   cursor: 'pointer',
                   fontSize: 13,
                   padding: '0 2px',
@@ -140,9 +140,9 @@ export const DemoQuickSwitch: React.FC = () => {
                     gap: 2,
                     padding: '7px 10px',
                     borderRadius: 8,
-                    border: isCurrent ? '1px solid rgba(56, 189, 248, 0.55)' : '1px solid #1c222c',
-                    background: isCurrent ? 'rgba(56, 189, 248, 0.1)' : '#12161d',
-                    color: '#f3f5f8',
+                    border: `1px solid ${isCurrent ? 'var(--primary-color)' : 'var(--border-color)'}`,
+                    background: isCurrent ? 'var(--primary-8)' : 'var(--bg-primary)',
+                    color: 'var(--text-primary)',
                     cursor: switching ? 'wait' : 'pointer',
                     textAlign: 'left',
                     transition: 'border-color 0.15s, background 0.15s',
@@ -158,15 +158,15 @@ export const DemoQuickSwitch: React.FC = () => {
                       fontWeight: 600,
                     }}
                   >
-                    <span style={{ color: isCurrent ? '#38bdf8' : '#f3f5f8' }}>
+                    <span style={{ color: isCurrent ? 'var(--primary-color)' : 'var(--text-primary)' }}>
                       {acct.label}
                       {isBusy ? ' · 切入中…' : isCurrent ? ' · 当前' : ''}
                     </span>
-                    <span style={{ fontSize: 11, color: '#7b8491', fontFamily: 'monospace' }}>
+                    <span style={{ fontSize: 11, color: 'var(--text-secondary)' }}>
                       {acct.email.split('@')[0]}
                     </span>
                   </div>
-                  <span style={{ fontSize: 11, color: '#a1a8b3' }}>{acct.sub}</span>
+                  <span style={{ fontSize: 11, color: 'var(--text-secondary)' }}>{acct.sub}</span>
                 </button>
               );
             })}
@@ -185,12 +185,12 @@ export const DemoQuickSwitch: React.FC = () => {
             gap: 6,
             padding: '5px 10px',
             borderRadius: 999,
-            background: 'rgba(20, 25, 34, 0.88)',
-            border: '1px solid #262e3a',
-            color: '#a1a8b3',
+            background: 'var(--bg-primary)',
+            border: '1px solid var(--border-color)',
+            color: 'var(--text-secondary)',
             fontSize: 11,
             cursor: 'pointer',
-            boxShadow: '0 6px 18px rgba(0,0,0,0.45)',
+            boxShadow: 'var(--shadow)',
           }}
         >
           <span
@@ -198,7 +198,7 @@ export const DemoQuickSwitch: React.FC = () => {
               width: 6,
               height: 6,
               borderRadius: '50%',
-              background: '#38bdf8',
+              background: 'var(--primary-color)',
               display: 'inline-block',
             }}
           />
